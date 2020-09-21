@@ -1,0 +1,51 @@
+{
+    "name": "kcs/secure-link",
+    "description": "Library for secure (encoded) links generation/handling (with symfony bundle)",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alessandro Chitolina",
+            "email": "email@example.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "ext-json": "*",
+        "phpenum/phpenum": "^1.2",
+        "symfony/http-foundation": "^4.4|^5.0",
+        "symfony/http-kernel": "^4.4|^5.0",
+        "thecodingmachine/safe": "^1.2"
+    },
+    "require-dev": {
+        "aws/aws-sdk-php": "^3.130",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpunit/phpunit": "^9.1",
+        "roave/security-advisories": "dev-master",
+        "solido/php-coding-standards": "dev-master",
+        "symfony/config": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/routing": "^4.4|^5.0"
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse src/ -c vendor/solido/php-coding-standards/phpstan.neon --level=8 --no-progress -vvv --memory-limit=2048M",
+        "cscheck": "vendor/bin/phpcs --standard=Solido src/",
+        "csfix": "vendor/bin/phpcbf --standard=Solido src/"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kcs\\SecureLink\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Kcs\\SecureLink\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "archive": {
+        "exclude": [ ".gitignore", ".travis.yml", "tests" ]
+    }
+}
