@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Kcs\SecureLink\Util;
 
-use RuntimeException;
-use function base64_decode;
 use function base64_encode;
+use function Safe\base64_decode;
 use function str_replace;
 
 final class Base64
@@ -17,12 +16,7 @@ final class Base64
      */
     public static function encode(string $data): string
     {
-        $encoded = @base64_encode($data);
-        if ($encoded === false) {
-            throw new RuntimeException('Unable to encode data to base64');
-        }
-
-        return $encoded;
+        return base64_encode($data);
     }
 
     /**
@@ -31,12 +25,7 @@ final class Base64
      */
     public static function decode(string $encoded): string
     {
-        $decoded = @base64_decode($encoded, true);
-        if ($decoded === false) {
-            throw new RuntimeException('Unable to encode data to base64');
-        }
-
-        return $decoded;
+        return base64_decode($encoded, true);
     }
 
     /**

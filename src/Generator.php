@@ -19,8 +19,8 @@ class Generator implements GeneratorInterface
 
     public function generate(Operation $operation): Payload
     {
-        if (! $operation->validUntil) {
-            $operation->validUntil = (new DateTimeImmutable($operation->validUntil))->modify('+30 days');
+        if ($operation->validUntil === null) {
+            $operation->validUntil = (new DateTimeImmutable())->modify('+30 days');
         }
 
         $serialized = json_encode($operation);

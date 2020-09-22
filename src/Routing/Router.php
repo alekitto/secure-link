@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RouterInterface;
+use function assert;
 
 class Router implements RouterInterface, RequestMatcherInterface, WarmableInterface
 {
@@ -23,6 +24,8 @@ class Router implements RouterInterface, RequestMatcherInterface, WarmableInterf
 
     public function __construct(RouterInterface $baseRouter, Generator $secureLinkGenerator)
     {
+        assert($baseRouter instanceof RequestMatcherInterface && $baseRouter instanceof WarmableInterface);
+
         $this->baseRouter = $baseRouter;
         $this->secureLinkGenerator = $secureLinkGenerator;
     }

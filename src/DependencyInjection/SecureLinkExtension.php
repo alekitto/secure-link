@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kcs\SecureLink\DependencyInjection;
 
+use Aws\Kms\KmsClient;
 use Kcs\SecureLink\Encoder\AwsKmsEncoder;
 use Kcs\SecureLink\Encoder\EncoderInterface;
 use Kcs\SecureLink\Encoder\EncoderRegistry;
@@ -12,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use function assert;
 use function class_exists;
 
 class SecureLinkExtension extends Extension
@@ -21,8 +23,15 @@ class SecureLinkExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $config = $this->processConfiguration($this->getConfiguration($configs, $container), $configs);
+        $configuration = $this->getConfiguration($configs, $container);
+        assert($configuration !== null);
+
+        $config = $this->processConfiguration($configuration, $configs);
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+
+        if (! $config['enabled']) {
+            return;
+        }
 
         $loader->load('services.php');
 
