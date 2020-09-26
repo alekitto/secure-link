@@ -6,13 +6,12 @@
     "authors": [
         {
             "name": "Alessandro Chitolina",
-            "email": "email@example.com"
+            "email": "alekitto@gmail.com"
         }
     ],
     "require": {
         "php": "^7.4",
         "ext-json": "*",
-        "phpenum/phpenum": "^1.2",
         "symfony/http-foundation": "^4.4|^5.0",
         "symfony/http-kernel": "^4.4|^5.0",
         "thecodingmachine/safe": "^1.2"

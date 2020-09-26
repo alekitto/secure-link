@@ -17,12 +17,14 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->getRootNode()
             ->addDefaultsIfNotSet()
             ->canBeDisabled()
+            ->fixXmlConfig('aws_kms_option')
             ->children()
                 ->scalarNode('dsn')
                     ->isRequired()
                     ->cannotBeEmpty()
                     ->example('plaintext://')
                 ->end()
+                ->variableNode('aws_kms_options')->defaultValue([])->end()
             ->end();
 
         return $treeBuilder;
