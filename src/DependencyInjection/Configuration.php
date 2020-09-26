@@ -6,7 +6,6 @@ namespace Kcs\SecureLink\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use function is_array;
 
 class Configuration implements ConfigurationInterface
 {
@@ -25,12 +24,13 @@ class Configuration implements ConfigurationInterface
                     ->cannotBeEmpty()
                     ->example('plaintext://')
                 ->end()
-                ->variableNode('aws_kms_options')
-                    ->validate()
-                        ->ifTrue(static fn ($v) => ! is_array($v))
-                        ->thenInvalid('AWS KMS options must be an array')
+                ->arrayNode('aws_kms_options')
+                    ->addDefaultsIfNotSet()
+                    ->ignoreExtraKeys()
+                    ->children()
+                        ->scalarNode('region')->defaultValue('us-west-1')->end()
+                        ->scalarNode('version')->defaultValue('2014-11-01')->end()
                     ->end()
-                    ->defaultValue([])
                 ->end()
             ->end();
 

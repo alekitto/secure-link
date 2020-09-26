@@ -7,6 +7,7 @@ namespace Kcs\SecureLink\Encoder;
 use Aws\Kms\KmsClient;
 use Kcs\SecureLink\Exception\InvalidSignatureException;
 use Kcs\SecureLink\Util\Base64;
+use Safe\Exceptions\UrlException;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use function parse_str;
 use function Safe\parse_url;
@@ -74,8 +75,9 @@ class AwsKmsEncoder implements EncoderInterface
 
     public function supports(string $dsn): bool
     {
-        $url = parse_url($dsn);
-        if ($url === false) {
+        try {
+            $url = parse_url($dsn);
+        } catch (UrlException $e) {
             return false;
         }
 
@@ -95,8 +97,9 @@ class AwsKmsEncoder implements EncoderInterface
             throw new InvalidConfigurationException('Not implemented yet.');
         };
 
-        $url = parse_url($dsn);
-        if ($url === false) {
+        try {
+            $url = parse_url($dsn);
+        } catch (UrlException $e) {
             return ['', ''];
         }
 
