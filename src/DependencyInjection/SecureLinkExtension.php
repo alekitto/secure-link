@@ -48,7 +48,7 @@ class SecureLinkExtension extends Extension
         }
 
         $container->register(EncoderInterface::class)
-            ->setFactory([EncoderRegistry::class, 'getEncoder'])
+            ->setFactory([new Reference(EncoderRegistry::class), 'getEncoder'])
             ->addArgument($config['dsn']);
     }
 }
